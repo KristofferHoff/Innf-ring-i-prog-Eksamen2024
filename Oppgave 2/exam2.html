@@ -280,6 +280,36 @@
             {lastname: "Jansson", firstname: "Sigried", office: "B1", mail: "s.jansson@company.com"}
         ]
 
+        //For å sortere rekkefølge på etternavn i mail:
+
+        //Denne koden jeg tatt fra: https://favtutor.com/articles/sort-an-array-of-objects-in-javascript/ under punk 2 " Sorting By String Values". Jeg har kopiert koden, men har gjort justeringer for at den skal funke til min kode!
+        // justeringer gjort: 
+        // endret måte den sorterer på, "sortedByFirstname" til "sortedBylastname" for å sortere alfabetisk etter etternavn og ikke fornavn. 
+        // Byttet ut objektet, "contacts" istedenfor "workers" så den sorterer i riktig array!
+        // Endret x.firstname & y.firstname til x.lastname & y.lastname, for å passe på å at den søker etter etternavn.
+
+        sortedBylastname = contacts.sort((x, y) => {
+
+
+    // endrer etternavn så de er små bokstaver, så uavhengig av store eller små bokstaver blir det sortert riktig
+    let fx = x.lastname.toLowerCase(), fy = y.lastname.toLowerCase();
+
+    // koden betyr: om X kommer før Y i alfabetet, returneres -1. Slik at x plasseres før Y
+    if (fx < fy) {
+        return -1;
+    }
+
+     // koden betyr: om X kommer etter Y i alfabetet, returneres 1. Slik at x plasseres etter Y
+    if (fx > fy) {
+        return 1;
+    }
+
+    // Hvis etternavnene er like, så returneres 0.. så rekkefølgen forblir slik den er. 
+    return 0;
+    });
+
+
+
         let contactlist = ""
 
         contacts.map((contact, index) => {
@@ -288,9 +318,8 @@
                     Kontor: ${contact.office} | E-post: <a href="mailto:${contact.mail}">${contact.mail}</a></p>
             </article>`
         })
-        //Ettersom loopen for å få vist fram tekst i "immerhtml", så brukte jeg cheatsheat mappen for å finne svaret.
-        // Ettersom oppgaveteksten sier at vi skal bruke mailto: protokollen, og vi skal ha en link. Så vet jeg at A-taggen er en link og href peker på hvor linkel skal være. 
-        // jeg utviden også ${contact.mail} innenfor A taggen for at det skulle være synlig i html koden
+        // jeg brukte mappen "cheetsheet" som vi laget, og under functions.html fant jeg at vi brukte denne metoden for å få en klikkbar email link. så da brukte jeg denne å fant ut hvordan og hva den gjør!
+        
 
         document.getElementById("contactlist").innerHTML = contactlist
         
@@ -304,6 +333,30 @@
             {text: "Nettbutikksalg, uke 45", date: "13.11.24", amount: 2988}
         ]
 
+        //For å vise fram kviteringer, med dato og beløp.
+
+        // for å vise fram kviteringer med dato og beløp. Jeg brukte samme framgangsmåte og struktur som på todos-listen, ettersom man skulle få samme resultat (gå gjennom en liste å få de fram i HTML strukturen)
+        //Jeg bruker map(book =>) for "se/gå gjennom" listen "todos" og opprette en ny inlineHTML for hver oppgave.
+        const bookLineGenerator = books.map(book =>{
+
+
+        // For hver kvittering i books-listen, oppretter jeg en HTML struktur som inneholder: Kviterings-tekst, Dato og beløp.
+        // jeg "peker" på de forksjellige 
+        // Jeg lager en ny <div> for hver kvitering i books-listen 
+            
+            return ` <div class="bookline"> 
+            <span class="booktext">${book.text}</span>
+            <span class="bookdate">${book.date}</span>
+            <span class="bookamount">${book.amount}</span>
+           </div>
+          `;
+       
+        }).join("")
+        
+        document.getElementById("booklines").innerHTML = bookLineGenerator;
+
+
+
         let equity = 23782; //Penger på konto ved inngangen til november
         document.getElementById("incomingequity").innerHTML = equity
         let balance = 0;    //Startbalanse for utregning av utgifter og inntekter i november
@@ -316,35 +369,43 @@
             {text: "Lag funksjonalitet for å registrere nye oppgaver", status: "To do"},
             {text: "Lag funksjonalitet for å sette en eksisterende oppgave til utført ved å endre status", status: "To do"}
         ]
-        // Jeg lager først en funksjon på å lage disse inlineHTML. henter listen i todos og bruker map for å fornye koden i html.
+        //Brukte cheatsheet: array-with-objects for selve struktur og tankegang! endringer måtte til med indeling av UL og LI og litt sånt. men gennerlt fulgt den. 
+        // Jeg lager først en funksjon som gennererer inlineHTML for hver oppgave i listen "todos"
+        //Jeg bruker map(todos =>) for "se/gå gjennom" listen "todos" og opprette en ny inlineHTML for hver oppgave.
         const todolistGenerator = todos.map(todos =>{
 
-            //For hver oppgave som blir laget peker jeg på "todos-text" og "todos-status". 
-            // Jeg har lagt class på P taggene mine, å fulgt css for å sørge for at jeg for riktige farger på liste knappenemine.
-            // Jeg har brukt ? og : som ternary opperator for å sette hvilken status tasken får/har. Kilde jeg brukte for å finne ut av det, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+            //For hver oppgave som blir laget peker jeg på "todos-text" og "todos-status". Dette 
+            // For hver oppgave i "todos"-listen bruker jeg map() for å lage en HTML-struktur med <li>-elementer som inneholder oppgavetekst og status.
+            // Jeg har brukt ("? :" ternary opperator) for å sette riktig CSS-class for å reppresentrere om statusen er "to-do" eller om status er "Done", 
+
             return `
             <li>
-                <p class="task-text">${todos.text}</p>
-                <p class="task-status ${todos.status === "Done" ? "task-status-done" : "task-status-todo"}">${todos.status}</p>
+                <span class="task-text">${todos.text}</span>
+                <span class="task-status ${todos.status === "Done" ? "task-status-done" : "task-status-todo"}">${todos.status}</span>
             </li>`;
             // Jeg bruker .Join("") for å fjerne komma som listeikonene map() har satt inn.
         }).join("");
 
-        // Kaller på funksjonen som jeg nettopp har laget, så den følger de rettningsslinjene jeg har satt.
+        // Kaller på funksjonen som jeg nettopp har laget, så den følger de rettningsslinjene jeg har satt. 
         document.getElementById("todolist").innerHTML = todolistGenerator;
         
 
-        // Eventlistner for knapp her:
-        // har laget 3 forskjellige variabler, som alle er nødvendige for at todo listen skal komme opp når man trykker på "Lagre" knappen!
+
+
+        // Eventlistner for lagre-knapp her:
+        // har laget 3 forskjellige variabler, som alle er nødvendige for at en ny todo-liste element skal komme opp når man trykker på "Lagre" knappen!
+        // saveButton: refererer til knappen for å lagre oppgaven
+        // taskInput: refererer til input-feltet der teksten til oppgaven blir skrevet inn
+        // todoList: refererer til listen der oppgaven vises på nettstedet.
         const saveButton = document.getElementById('savetask')
         const taskInput = document.getElementById('task')
         const todoList = document.getElementById('todolist')
         
-        // jeg laget en funksjon som lytter på knappen i nettsiden, der saveButton "lytter" etter et click på buttonn for å kjøre funksjonen jeg har satt opp.
+        //jeg laget en funksjon som lytter på knappen i nettsiden, der saveButton(variabel av "savetask" knapp) "lytter" etter et click på buttonn for å kjøre funksjonen og kjøre funkjsonen om hente teksten fra input-felt til oppgaveliste.
         //jeg har satt inn en tom parameter () for å ikke kjøre noe spesifikk event eller noe på denne funksjonen. arrow funksjon også tatt med for å sørge for at koden kjører riktig.  
         saveButton.addEventListener('click', () => {
 
-        // lagde en variabel for newtask, som sier at newtask = henter ut teksten fra input-feltet.
+        // Henter teksten fra input-feltet og lagrer det i variabelen newTask.
         const newTask = taskInput.value;
 
         //Lager en if test for sørge for at det kun "gyldig" input som får lov å dukke opp i "innerHTML" pluss at jeg kunne legge inn alert delen som sørger for at input-feltet er "reqired". Var også inne på tanken å gå inn i HTML å sette inut feltet til "required" sånn at man ikke kan sende en tom teksstreng inn i koden. Gikk altså da heller for en if/else test for å vise mer kompetanse!
@@ -353,12 +414,12 @@
             //Setter todoList innerHTML så det skal syntes i den nettsiden (altså INNI html). 
             todoList.innerHTML += 
 
-            // henter ut min nye newTask variabel, ettersom den henter ut teksten fra input-feltet.
-            // Henter ut classen "task-status task-status-todo", og setter statusen til "To do" som standart. 
+            // oppretter HTML for "newTask" og legger den til i todos-listen
+            // Henter ut classen "task-status task-status-todo", Den nye oppgaven blir satt til "to-do" per standard. og blir vist med den riktige CSS-klassen!
             `
             <li>
-                <p class="task-text">${newTask}</p>
-                <p class="task-status task-status-todo">To do</p>
+                <span class="task-text">${newTask}</span>
+                <span class="task-status task-status-todo">To do</span>
             </li>`;
              
 
@@ -367,16 +428,32 @@
         // Lager else til if'en min for å svare til krav C, derfor jeg gikk fir if test fra starten av! tenkte dette var den beste løsnignen å slå to fluer i en smekk!
         } else {
             alert('Du kan ikke sende inn en tom oppgave!')
-        }
-        });
+        }});
+        // Kilde jeg brukte (https://dev.to/iamcymentho/implementing-to-do-list-using-javascript-32a7) som kilde, for inspirasjoon for struktur. Jeg tok også insirasjon fra måten jeg løste oppgaven E-krav(dynamisk utskrift av todos)
         
 
 
 
        
-        
+        //Brukte https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock som kilde klokken min i HTMl.
+        //Måtte sette på den avsluttende (startTime()) for at koden skulle begynne å kjøre, utenom det er koden helt lik som den i linken. 
         //CLOCK
-        
+        function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+startTime();
     </script>
 </body>
 </html>
