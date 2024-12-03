@@ -334,25 +334,38 @@
         ]
 
         //For å vise fram kviteringer, med dato og beløp.
+        // Jeg brukte samme framgangsmåte og struktur som på todos-listen, ettersom man skulle få samme resultat (gå gjennom en liste å få de fram i HTML strukturen)
+        // Det var flere måter jeg fikk til å løse oppgaven på, eksempel: 
 
-        // for å vise fram kviteringer med dato og beløp. Jeg brukte samme framgangsmåte og struktur som på todos-listen, ettersom man skulle få samme resultat (gå gjennom en liste å få de fram i HTML strukturen)
-        //Jeg bruker map(book =>) for "se/gå gjennom" listen "todos" og opprette en ny inlineHTML for hver oppgave.
+        //<div class="bookline"> 
+        // <span class="booktext">${books[0].text}</span>
+        // <span class="bookdate">${books[0].date}</span>
+        //<span class="bookamount">${books[0].amount}</span>
+        // </div>
+        // Ved å bruke denne metoden kan jeg gå gjennom hele listen manuelt (peke på hvor liste-elementene skal plasseres), og kun få det til å være synlig i HTML (inlinehtml). Ettersom vi videre i prosjektet gjøre endringer 
+
+
+        //Jeg bruker map(book =>) for "se/gå gjennom" listen "books" og opprette en ny inlineHTML for hvert liste element.
         const bookLineGenerator = books.map(book =>{
 
 
         // For hver kvittering i books-listen, oppretter jeg en HTML struktur som inneholder: Kviterings-tekst, Dato og beløp.
-        // jeg "peker" på de forksjellige 
-        // Jeg lager en ny <div> for hver kvitering i books-listen 
-            
+        // Har brukt helt lik framstilling på elementene som vist på bildet i oppgaveteksten (C-krav, 2.)
+        
+        // For hver oppgave som blir laget, er det 3 ting den inneholder:
+        //Book.text = teksten for kviteringen, beskriver kjøpet som ble gjort
+        //Book.date = datoen for kviteringen, Når kjøpet ble gjort
+        //Book.amount = Beløpet som er på kviteringen, hvor mye du betalte for varen.
             return ` <div class="bookline"> 
             <span class="booktext">${book.text}</span>
             <span class="bookdate">${book.date}</span>
             <span class="bookamount">${book.amount}</span>
            </div>
           `;
-       
+        // Jeg bruker .Join("") for å fjerne komma som listeikonene map() har satt inn.
         }).join("")
-        
+
+        // Kaller på funksjonen som jeg nettopp har laget, så den følger de rettningsslinjene jeg har satt. 
         document.getElementById("booklines").innerHTML = bookLineGenerator;
 
 
