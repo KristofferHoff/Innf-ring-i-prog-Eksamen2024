@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam </title>
+    <style>
+        body {
+    background: #f3f3f3;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+button {
+    border: 1px solid #333;
+    background: #f0f1ed;
+    color: #333;
+    flex-grow: 1;
+    padding: .5rem;
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: ease-in-out .5s;
+    cursor: pointer;
+}
+button:hover {
+    background: #237eb3;
+    border: 1px solid #083956;
+    color: #fff;
+}
+button:disabled, button:disabled:hover {
+    border: 1px solid #ccc;
+    background: #eee;
+    color: #aaa;
+    cursor: default;
+}
+#colorspace {
+    width: 100%;
+    max-width: 1000px;
+    height: 100;
+    background: #ffffff;
+    margin-bottom: 1rem;
+}
+section {
+    background: #ccc;
+    border: 1px solid #333;
+    margin-top: 1rem;
+}
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Fargepaletten</h1>
+        <canvas id="colorspace"></canvas>
+        <nav>
+            <button id="addColor">Legg till en farge</button>
+            <button id="emptyArray">Tilbakestill fargene</button>
+            <button id="generateAll">Generer 10 nye farger</button>
+        </nav>
+        <h2>Endre farger:</h2>
+        <section>
+            <p>Bytt ut fargen i rute <select id="colorSquareIndex">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+                <option value="5">6</option>
+                <option value="6">7</option>
+                <option value="7">8</option>
+                <option value="8">9</option>
+                <option value="9">10</option>
+            </select> med #<input type="text" id="newColor" /> <button id="saveNewColor">Lagre ny farge</button></p>
+        </section>
+    </main>
+    
+
+    <script>
+        //Configure canvas
+        const canvas = document.getElementById("colorspace")
+        canvas.width = 1000
+        canvas.height = 100
+        const ctx = canvas.getContext("2d")
+
+        /* --- YOUR FUNCTIONALITY AND CODE GOES HERE --- */
+
+    
+        //Mnsterkrav
+
+        //Lager en tom array der farger skal pushses oppi:
+
+        let fargeArray = [];
+
+        //Definerer funksjonen for å lage en tilfeldig hexa-farge som kommer ut i loggen.
+    function RandomFarge() {
+        // Definerer alle de de forskjellige mulige måter å lage en hexa-farge på! eksempel 123123 eller ab1212.
+    const tegn = '0123456789ABCDEF'; 
+    //Definerer at det skal være en # før tegn! som da definerer en hexakode.
+    let farge = '#';
+    
+   // Lager en for-loop som kjører 6 ganger, ettersom hexakoder består av 6 tegn etter #.
+    for (let i = 0; i < 6; i++) {
+
+        farge += tegn[Math.floor(Math.random() * 16)];
+    }
+    return farge; // Returnerer en tilfeldig fargekode
+}
+    RandomFarge();
+console.log(RandomFarge())
+//Kilde: https://stackoverflow.com/questions/64417908/repeating-a-function-passed-as-a-props-in-react-component-multiple-times
+
+
+
+
+function LeggTilFarge() {
+    // Sjekk om arrayet har 10 farger allerede
+    if (fargeArray.length >= 10) {
+        alert("Kan ikke lagre flere enn 10 farger!");
+        return;
+    }
+
+    const nyFarge = RandomFarge(); // Generer en tilfeldig fargekode
+    fargeArray.push(nyFarge); // Lagre fargen i systemet (arrayet)
+    console.log("Lagrede farger:", fargeArray); // Skriv ut hele arrayet i konsollen
+}
+
+// Event listener for knappen
+document.getElementById("addColor").addEventListener("click", LeggTilFarge);
+
+
+
+        
+
+        //requestAnimationFrame
+        const requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame
+        function renderCanvas() {
+            
+            requestAnimationFrame(renderCanvas)
+        }
+
+        //Initial running of drawing canvas
+        renderCanvas()
+    </script>
+</body>
+</html>
