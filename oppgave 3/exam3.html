@@ -124,20 +124,23 @@ console.log(RandomFarge())
 
 
 
-
+// Lager en funksjon, som kan legge "RandomFarge" inn i den tomme arrayen "fargeArray"
 function LeggTilFarge() {
-    // Sjekk om arrayet har 10 farger allerede
+
+    // if testen skjekker om det er 10 farger eller mer skal det komme en alert som sier "kan ikke lagre flere en 10 farger"
     if (fargeArray.length >= 10) {
         alert("Kan ikke lagre flere enn 10 farger!");
         return;
     }
-
-    const nyFarge = RandomFarge(); // Generer en tilfeldig fargekode
-    fargeArray.push(nyFarge); // Lagre fargen i systemet (arrayet)
-    console.log("Lagrede farger:", fargeArray); // Skriv ut hele arrayet i konsollen
+    //Gennererer en tilfeldig farge ved å kalle på funksjonen "RandomFarge"
+    const nyFarge = RandomFarge(); 
+    // Legger til den nye fargen, inn i den tomme arrayen "fargeArray"
+    fargeArray.push(nyFarge); 
+    // Bruker console.log for å sørge for at de nye fargene legges i den tomme arrayen, og hvis det blir 10 farger (max) gir den alert om at den er
+    console.log("Lagrede farger:", fargeArray); 
 }
 
-// Event listener for knappen
+// Event listener for knappen, som lytter på når knappen blir tryket på blir funkjsonen "LeggTilFarge" kjørt en gang og legger til en ny random farge.
 document.getElementById("addColor").addEventListener("click", LeggTilFarge);
 
 
