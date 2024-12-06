@@ -144,6 +144,20 @@ function LeggTilFarge() {
 document.getElementById("addColor").addEventListener("click", LeggTilFarge);
 
 
+// Tilbakestill kanpp:
+    //Funksjon for å tilbakestille farger i arrayen og canvas,
+    function Tilbakestill(){
+
+        //Tømmer arrayen som lagrer alle fargene, tømmes helt uansett hvor mange farger som er gennerert.
+        fargeArray = [];
+        //Sender en mld i consolen for å dobbeltskjekke at det skjer
+        console.log("Alle farger er tilbakestilt", fargeArray);
+
+        // Tømmer hele canvaset, (X,Y, bredde og høyde) alt innenfor disse parapeterne blir tømt. 
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+    }
+    //Legger på en "Eventlistner" på "click". så når knappen blir "Trykket på" så kjører funksjonen Tilbakestill().
+    document.getElementById("emptyArray").addEventListener("click", Tilbakestill);
 
         
 
