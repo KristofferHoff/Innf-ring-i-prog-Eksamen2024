@@ -150,9 +150,71 @@ document.getElementById("addColor").addEventListener("click", LeggTilFarge);
         //requestAnimationFrame
         const requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame
         function renderCanvas() {
+
+            //Tømmer canvas for tidligere tegninger, for å ungå at noen firkanter overlapper hverandre
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+
+            //Går gjennom alle de lagrede fargene i fargeArrayen, ved hjelp av for each metoden. 
+            //Hver "farge" brukes til å tegne et rektangel i canvas.
+            fargeArray.forEach((farge, index) => {
+
+                
+                const bredde = 100; // Setter bredden til hvert rektangel til 100px
+                const høyde = 100;// Setter høyden til hvert rektangel til 100px
+                const startX = index * bredde; // Beregner X-posisjon for rektangelet
+                //Hvert rektangel blir plassert 100px til høyere fra den tidligere bassert på indexen i arrayen.
+
+                const startY = 0; // Alle rektangler starter på 0 i y akse, så de blir plassert på lik høyde. 
+
+                //Setter fargen til rektanglet bassert på fargen som blir hentet fra "fargeArray".
+                ctx.fillStyle = farge;
+
+                //Tegner rektanglet i canvas med satte Y og X posisjon. Med riktig satt bredde og høyde.
+                ctx.fillRect(startX, startY, bredde, høyde);
+
+
+
+         //For å fremvise #HEXA-koden og tallrekkefølge på firkantene.
             
+       //Setter størelsen på teksten som skal stå i firkanten.
+        ctx.font = '12px Arial';
+
+        // Kode for å legge hvit bakgrunn, som beskrevet i oppgave figurene;
+        // #fff som en hexa-kode for bakrunnsfargen hvit
+        ctx.fillStyle = '#fff';
+        //Tegner et rektangel i satt parameter #fff. justerte bredden på hele rektanlget med -40px i bredden, og 19 i høyden
+        ctx.fillRect(startX , startY, bredde - 40, 19);
+
+        //Tegner teksten i firkanten.
+        //Setter teksten til #000 som er hexakode for sort.
+        ctx.fillStyle = '#000';
+        //farge: er teksttrengen/#123123 i dette eksemppelet som skal tegnes opp. 
+        // X-kortitanene er plasert med +5px fra kanten, og Y-kortinanene plseert med 14px ned fra toppen.
+        ctx.fillText(farge, startX + 5, startY + 14);
+        
+        
+        // For rekkefølge-tall i høyere hjørnet:
+        
+        //Bruker #fff for å lage en hvit baktrunn som vist i oppgave figurene: 
+        ctx.fillStyle = '#fff';
+        // Tar startposisjon X + hele bredden, og tar -18px for å få den lille firkanten til tallet i arrayen.
+        // Tar startposisjon Y + høyden, og -20 for å plasere den rektanglet der jeg trenger. 30 beskriver bredden på rektanglet og 20 beskriver høyden i piksler.
+        ctx.fillRect(startX + bredde - 18, startY + høyde - 20, 30, 20);
+
+        // Bruer #000 for å sette tekstfargen til svart.
+        ctx.fillStyle = '#000';
+        // Index +1 sier at teksten som skal skrives ut legges på 1, dette må til for å få riktig framvisning ettersom en array alltid begynner med tallet 0
+        // Tar startposisjon X + hele bredden, og tar -12px så den blir plassert nederst i høyere hjørnet
+        // Tar startposisjon Y + helehøyden og tar -5px så den blir plassert nederst i høyere hjørnet
+        ctx.fillText(index + 1, startX + bredde - 12, startY + høyde - 5);
+
+
+        
+            })
             requestAnimationFrame(renderCanvas)
         }
+
+      
 
         //Initial running of drawing canvas
         renderCanvas()
