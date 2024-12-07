@@ -98,7 +98,6 @@ section {
         /* --- YOUR FUNCTIONALITY AND CODE GOES HERE --- */
 
     
-        //Mnsterkrav
 
         //Lager en tom array der farger skal pushses oppi:
 
@@ -132,12 +131,23 @@ function LeggTilFarge() {
         alert("Kan ikke lagre flere enn 10 farger!");
         return;
     }
+    
     //Gennererer en tilfeldig farge ved å kalle på funksjonen "RandomFarge"
     const nyFarge = RandomFarge(); 
     // Legger til den nye fargen, inn i den tomme arrayen "fargeArray"
     fargeArray.push(nyFarge); 
     // Bruker console.log for å sørge for at de nye fargene legges i den tomme arrayen, og hvis det blir 10 farger (max) gir den alert om at den er
     console.log("Lagrede farger:", fargeArray); 
+
+
+
+    if (fargeArray.length >= 10) {
+            document.getElementById("addColor").disabled = true;
+        }
+        else {
+            document.getElementById("addColor").disabled = false;
+        }
+
 }
 
 // Event listener for knappen, som lytter på når knappen blir tryket på blir funkjsonen "LeggTilFarge" kjørt en gang og legger til en ny random farge.
@@ -155,11 +165,37 @@ document.getElementById("addColor").addEventListener("click", LeggTilFarge);
 
         // Tømmer hele canvaset, (X,Y, bredde og høyde) alt innenfor disse parapeterne blir tømt. 
         ctx.clearRect(0,0, canvas.width, canvas.height);
+
+
+        //Legger til at når fargene tilbakestilles så blir knappen "addColor" tilbakestilt fra disabled til not-disabled!
+        document.getElementById("addColor").disabled = false;
+
     }
     //Legger på en "Eventlistner" på "click". så når knappen blir "Trykket på" så kjører funksjonen Tilbakestill().
     document.getElementById("emptyArray").addEventListener("click", Tilbakestill);
 
-        
+
+
+    //Gennerer 10 farger:
+    // Funksjon for å gennrere 10 nye farger. 
+    function GenererNyeFarger(){
+        //Tømmer fargeArrayen så det det alltid er mulig å generere 10 "uavhengig av hvor mange farger som allerede er laget." for å følge oppgaveteksten!
+        fargeArray = []
+
+        // Laget en "for-loop" som kjører så lenge "i" er under 10. så hvis det er under 10 så kjører løkken helt til den treffer akkuratt 10 farger. 
+        for (let i = 0; i < 10; i++){
+            // Pusher opp  "RandomFarge" i "fargeArrayen", helt til man treffer 10 farger. 
+            fargeArray.push(RandomFarge());
+        }
+        // console.log for å skjekke at funksjonen min funker.
+        console.log("Ti nye farger er gennerert", fargeArray) 
+
+        //Lager en if-test for å skjekke når "fargeArray" har 10 farger i listen skal "addColor" knappen bli disabled.
+        if (fargeArray.length >= 10) {
+            document.getElementById("addColor").disabled = true;
+        }
+    }
+        document.getElementById("generateAll").addEventListener("click", GenererNyeFarger)
 
         //requestAnimationFrame
         const requestAnimationFrame = window.requestAnimationFrame || window.msRequestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame
