@@ -105,15 +105,15 @@ section {
 
         //Definerer funksjonen for å lage en tilfeldig hexa-farge som kommer ut i loggen.
     function RandomFarge() {
-        // Definerer alle de de forskjellige mulige måter å lage en hexa-farge på! eksempel 123123 eller ab1212.
-    const tegn = '0123456789ABCDEF'; 
-    //Definerer at det skal være en # før tegn! som da definerer en hexakode.
-    let farge = '#';
+        // Definerer alle de de forskjellige mulige måter å lage en hexa-farge på.
+    const tegn = '0123456789ABCDEFabcdef'; 
+    //Definerer at det skal være en string "#" forran førte tall! som da definerer en hexakode.
+    let farge = "#";
     
    // Lager en for-loop som kjører 6 ganger, ettersom hexakoder består av 6 tegn etter #.
     for (let i = 0; i < 6; i++) {
-
-        farge += tegn[Math.floor(Math.random() * 16)];
+        // farge har en string "#", += for å legge på tilfeldig tegn fra "tegn"-strengen og legger det til i farge variablen.
+        farge += tegn[Math.floor(Math.random() * tegn.length)];
     }
     return farge; // Returnerer en tilfeldig fargekode
 }
@@ -140,7 +140,7 @@ function LeggTilFarge() {
     console.log("Lagrede farger:", fargeArray); 
 
 
-
+    //Lager en ny IF test, for å sørge for at "addColor" knappen ikke er disabled med mindre det er 10 eller fler farger i "fargeArray"
     if (fargeArray.length >= 10) {
             document.getElementById("addColor").disabled = true;
         }
@@ -152,6 +152,9 @@ function LeggTilFarge() {
 
 // Event listener for knappen, som lytter på når knappen blir tryket på blir funkjsonen "LeggTilFarge" kjørt en gang og legger til en ny random farge.
 document.getElementById("addColor").addEventListener("click", LeggTilFarge);
+
+
+
 
 
 // Tilbakestill kanpp:
@@ -167,7 +170,7 @@ document.getElementById("addColor").addEventListener("click", LeggTilFarge);
         ctx.clearRect(0,0, canvas.width, canvas.height);
 
 
-        //Legger til at når fargene tilbakestilles så blir knappen "addColor" tilbakestilt fra disabled til not-disabled!
+        //Legger til at når fargene tilbakestilles så blir knappen "addColor" tilbakestilt fra disabled til not-disabled.
         document.getElementById("addColor").disabled = false;
 
     }
@@ -205,14 +208,14 @@ document.getElementById("addColor").addEventListener("click", LeggTilFarge);
             ctx.clearRect(0,0, canvas.width, canvas.height);
 
             //Går gjennom alle de lagrede fargene i fargeArrayen, ved hjelp av for each metoden. 
-            //Hver "farge" brukes til å tegne et rektangel i canvas.
+            //Hver "farge" brukes til å tegne et firkant i canvas.
             fargeArray.forEach((farge, index) => {
 
                 
-                const bredde = 100; // Setter bredden til hvert rektangel til 100px
-                const høyde = 100;// Setter høyden til hvert rektangel til 100px
-                const startX = index * bredde; // Beregner X-posisjon for rektangelet
-                //Hvert rektangel blir plassert 100px til høyere fra den tidligere bassert på indexen i arrayen.
+                const bredde = 100; // Setter bredden til firkant til 100px
+                const høyde = 100;// Setter høyden til hvert firkant til 100px
+                const startX = index * bredde; // Beregner X-posisjon for firkant.
+                //Hvert firkant blir plassert 100px til høyere fra den tidligere bassert på indexen i arrayen. Indexen i arrayen bestemmer hvor langt til høyere firkant plasseres
 
                 const startY = 0; // Alle rektangler starter på 0 i y akse, så de blir plassert på lik høyde. 
 
@@ -232,7 +235,7 @@ document.getElementById("addColor").addEventListener("click", LeggTilFarge);
         // Kode for å legge hvit bakgrunn, som beskrevet i oppgave figurene;
         // #fff som en hexa-kode for bakrunnsfargen hvit
         ctx.fillStyle = '#fff';
-        //Tegner et rektangel i satt parameter #fff. justerte bredden på hele rektanlget med -40px i bredden, og 19 i høyden
+        //Tegner et firkant i satt parameter #fff. justerte bredden på hele rektanlget med -40px i bredden, og 19 i høyden
         ctx.fillRect(startX , startY, bredde - 40, 19);
 
         //Tegner teksten i firkanten.

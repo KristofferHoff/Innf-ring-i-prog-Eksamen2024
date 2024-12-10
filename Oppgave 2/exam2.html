@@ -314,11 +314,11 @@
 
         contacts.map((contact, index) => {
             contactlist += `<article>
-                <p><strong>${contact.lastname}, ${contact.firstname}</strong><br />
+                <p><strong>${contact.lastname}, ${contact.firstname}</strong><br/>
                     Kontor: ${contact.office} | E-post: <a href="mailto:${contact.mail}">${contact.mail}</a></p>
             </article>`
         })
-        // jeg brukte mappen "cheetsheet" som vi laget, og under functions.html fant jeg at vi brukte denne metoden for å få en klikkbar email link. så da brukte jeg denne å fant ut hvordan og hva den gjør!
+        // jeg brukte mappen "cheetsheet" som vi laget, og under functions.html fant jeg at vi brukte denne metoden for å få en klikkbar email link. så da brukte jeg denne å fant ut hvordan jeg kunne inplimentere den.
         
 
         document.getElementById("contactlist").innerHTML = contactlist
@@ -342,7 +342,7 @@
         // <span class="bookdate">${books[0].date}</span>
         //<span class="bookamount">${books[0].amount}</span>
         // </div>
-        // Ved å bruke denne metoden kan jeg gå gjennom hele listen manuelt (peke på hvor liste-elementene skal plasseres), og kun få det til å være synlig i HTML (inlinehtml). Ettersom vi videre i prosjektet gjøre endringer 
+        // Ved å bruke denne metoden kan jeg gå gjennom hele listen manuelt (peke på hvor liste-elementene skal plasseres), og kun få det til å være synlig i HTML (inlinehtml). Ettersom vi videre i prosjektet gjøre endringer mot karakter B og A så valgte jeg å bruke map() metoden.
 
 
         //Jeg bruker map(book =>) for "se/gå gjennom" listen "books" og opprette en ny inlineHTML for hvert liste element.
@@ -384,7 +384,7 @@
         ]
         //Brukte cheatsheet: array-with-objects for selve struktur og tankegang! endringer måtte til med indeling av UL og LI og litt sånt. men gennerlt fulgt den. 
         // Jeg lager først en funksjon som gennererer inlineHTML for hver oppgave i listen "todos"
-        //Jeg bruker map(todos =>) for "se/gå gjennom" listen "todos" og opprette en ny inlineHTML for hver oppgave.
+        //Jeg bruker map(todos =>) for "se/gå gjennom" listen "todos" og opprette en ny "inlineHTML" for hver oppgave.
         const todolistGenerator = todos.map(todos =>{
 
             //For hver oppgave som blir laget peker jeg på "todos-text" og "todos-status". Dette 
@@ -428,7 +428,7 @@
             todoList.innerHTML += 
 
             // oppretter HTML for "newTask" og legger den til i todos-listen
-            // Henter ut classen "task-status task-status-todo", Den nye oppgaven blir satt til "to-do" per standard. og blir vist med den riktige CSS-klassen!
+            // Henter ut classen "task-status task-status-todo", Den nye oppgaven blir satt til "to-do" per standard. og blir vist med den riktige CSS-klasse.
             `
             <li>
                 <span class="task-text">${newTask}</span>
@@ -436,13 +436,13 @@
             </li>`;
              
 
-        //Setter inn taskinput.value til '', for å sørge for at input feltet ikke skal ha noe tekst igjen etter jeg har laget en ny oppgave
+        //Setter inn taskinput.value til '' (tom), for å sørge for at input feltet ikke skal ha noe tekst igjen etter jeg har laget en ny oppgave
         taskInput.value = '';
-        // Lager else til if'en min for å svare til krav C, derfor jeg gikk fir if test fra starten av! tenkte dette var den beste løsnignen å slå to fluer i en smekk!
+        // Lager else til if'en min for å svare til krav C. som sier at om "task.input" er tom, så kan du ikke sende inn oppgaven og du får en alert.
         } else {
             alert('Du kan ikke sende inn en tom oppgave!')
         }});
-        // Kilde jeg brukte (https://dev.to/iamcymentho/implementing-to-do-list-using-javascript-32a7) som kilde, for inspirasjoon for struktur. Jeg tok også insirasjon fra måten jeg løste oppgaven E-krav(dynamisk utskrift av todos)
+        // Kilde jeg brukte (https://dev.to/iamcymentho/implementing-to-do-list-using-javascript-32a7), for inspirasjoon for struktur. Jeg tok også insirasjon fra måten jeg løste oppgaven E-krav(dynamisk utskrift av todos)
         
 
 
@@ -450,6 +450,7 @@
        
         //Brukte https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock som kilde klokken min i HTMl.
         //Måtte sette på den avsluttende (startTime()) for at koden skulle begynne å kjøre, utenom det er koden helt lik som den i linken. 
+
         //CLOCK
         function startTime() {
   const today = new Date();
