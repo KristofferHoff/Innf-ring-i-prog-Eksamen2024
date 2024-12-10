@@ -313,7 +313,8 @@
         let contactlist = ""
 
         contacts.map((contact, index) => {
-            contactlist += `<article>
+            contactlist +=
+             `<article>
                 <p><strong>${contact.lastname}, ${contact.firstname}</strong><br/>
                     Kontor: ${contact.office} | E-post: <a href="mailto:${contact.mail}">${contact.mail}</a></p>
             </article>`
@@ -342,7 +343,7 @@
         // <span class="bookdate">${books[0].date}</span>
         //<span class="bookamount">${books[0].amount}</span>
         // </div>
-        // Ved å bruke denne metoden kan jeg gå gjennom hele listen manuelt (peke på hvor liste-elementene skal plasseres), og kun få det til å være synlig i HTML (inlinehtml). Ettersom vi videre i prosjektet gjøre endringer mot karakter B og A så valgte jeg å bruke map() metoden.
+        // Ved å bruke denne metoden kan jeg gå gjennom hele listen manuelt (peke på hvor liste-elementene skal plasseres), og kun få det til å være synlig i HTML (inlinehtml) akkuratt som forklart i oppgaven. Ettersom vi videre i prosjektet gjøre endringer mot karakter B og A så valgte jeg å bruke map() metoden.
 
 
         //Jeg bruker map(book =>) for "se/gå gjennom" listen "books" og opprette en ny inlineHTML for hvert liste element.
@@ -370,9 +371,36 @@
 
 
 
-        let equity = 23782; //Penger på konto ved inngangen til november
-        document.getElementById("incomingequity").innerHTML = equity
+
+    
+        let incomingequity = 23782; //Penger på konto ved inngangen til november
+        document.getElementById("incomingequity").innerHTML = incomingequity
+
+
+        //For framvisning av balanse desember:
+
         let balance = 0;    //Startbalanse for utregning av utgifter og inntekter i november
+
+        balance -= 750;
+        balance -= 439;
+        balance += 3428;
+        balance -= 1299;
+        balance -= 644;
+        balance += 2988;
+
+        document.getElementById("balance").innerHTML = balance
+
+
+        let equity = (balance + incomingequity);
+        document.getElementById("equity").innerHTML = equity
+
+
+
+       
+       
+
+        
+        
 
 
         //TODOS
@@ -448,8 +476,7 @@
 
 
        
-        //Brukte https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock som kilde klokken min i HTMl.
-        //Måtte sette på den avsluttende (startTime()) for at koden skulle begynne å kjøre, utenom det er koden helt lik som den i linken. 
+    
 
         //CLOCK
         function startTime() {
@@ -468,6 +495,9 @@ function checkTime(i) {
   return i;
 }
 startTime();
+
+        //Brukte https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock som kilde klokken min i HTMl.
+        //Måtte sette på den avsluttende (startTime()) for at koden skulle begynne å kjøre, utenom det er koden helt lik som den i linken. 
     </script>
 </body>
 </html>
